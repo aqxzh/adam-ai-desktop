@@ -23,7 +23,7 @@ function changeFinish(i){
   var f=FINISHES[i];if(!f)return;
   document.querySelectorAll('.pen-svg').forEach(function(svg){
     svg.setAttribute('aria-label','AdamAI: '+f.name);
-    svg.querySelector('[id$="FinishOverlay"]').setAttribute('opacity',i===0?'0':'1');
+    svg.querySelector('[id$="FinishOverlay"]').setAttribute('opacity','1');
     svg.querySelectorAll('[id$="BodyTone"] stop').forEach(function(el,j){el.setAttribute('stop-color',f.gradient[j]);});
     svg.querySelectorAll('[id$="Face"]').forEach(function(el){el.setAttribute('fill',f.face);var p=el.querySelector('path');if(p)p.setAttribute('stroke',f.face);});
     svg.querySelectorAll('[id$="Glints"]').forEach(function(el){el.setAttribute('fill',f.glint);});
@@ -78,6 +78,38 @@ if(themeBtn)themeBtn.addEventListener('click',function(){
  d.style.colorScheme=t;
  try{localStorage.setItem('adam-theme',t);}catch(e){}
 });
+var penEyes=document.getElementById('penEyes');
+var eyeGroups=penEyes?penEyes.querySelectorAll('.eye'):[];
+if(penEyes&&eyeGroups.length===2&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&matchMedia('(pointer: fine)').matches){
+ var eyePos={x:0,y:0},eyeAim={x:0,y:0};
+ var eyeR=null;
+ function eyeRects(){
+  var a=eyeGroups[0].getBoundingClientRect(),b=eyeGroups[1].getBoundingClientRect();
+  return {x:(a.left+a.right+b.left+b.right)/4,y:(a.top+a.bottom+b.top+b.bottom)/4};
+ }
+ function aim(e){
+  if(!eyeR)eyeR=eyeRects();
+  var dx=e.clientX-eyeR.x,dy=e.clientY-eyeR.y;
+  eyeAim.x=Math.max(-8,Math.min(8,dx*0.035));
+  eyeAim.y=Math.max(-6,Math.min(6,dy*0.035));
+ }
+ document.addEventListener('pointermove',aim,{passive:true});
+ document.addEventListener('pointerleave',function(){eyeAim.x=0;eyeAim.y=0;});
+ var eyeRafRunning=true;
+ function eyeTick(){
+  var wasMoving=Math.abs(eyePos.x-eyeAim.x)+Math.abs(eyePos.y-eyeAim.y);
+  eyePos.x+=(eyeAim.x-eyePos.x)*0.08;
+  eyePos.y+=(eyeAim.y-eyePos.y)*0.08;
+  if(wasMoving>0.003||Math.abs(eyeAim.x)+Math.abs(eyeAim.y)>0){
+   penEyes.setAttribute('transform','translate('+eyePos.x.toFixed(2)+' '+eyePos.y.toFixed(2)+')');
+  }
+  if(eyeRafRunning)requestAnimationFrame(eyeTick);
+ }
+ requestAnimationFrame(eyeTick);
+ var eyeSz=function(){eyeR=null;};
+ window.addEventListener('resize',function(){clearTimeout(eyeSz);eyeSz=setTimeout(function(){eyeR=null;},140);});
+ window.addEventListener('scroll',function(){eyeR=null;},{passive:true});
+}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
 })();
 'use strict';

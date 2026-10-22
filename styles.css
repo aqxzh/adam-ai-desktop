@@ -133,6 +133,9 @@ h2{margin:0;font-size:28px;line-height:1.15;font-weight:800;letter-spacing:-.01e
 .dott .red{width:12px;height:12px;border-radius:50%;background:#E5484D;flex:0 0 12px}
 .pen{flex:0 0 340px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .pen-stage{position:relative;width:330px;height:500px}
+.pen-svg .eye{transform-box:fill-box;transform-origin:center;animation:blink 5.4s ease 1.2s infinite}
+@keyframes blink{0%,93.4%,100%{transform:scaleY(1)}95.2%{transform:scaleY(.1)}97.8%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){.pen-svg .eye{animation:none}}
 .pen-svg{position:absolute;left:calc(50% - var(--pw)/2);top:12px;width:var(--pw);height:calc(var(--pw)*3.4533)}
 .disc{position:absolute;left:20px;top:122px;width:290px;height:290px;border-radius:50%;background:var(--surface)}
 .bub{position:absolute;box-sizing:border-box;background:var(--lift);border:1px solid var(--img-line);border-radius:12px;padding:11px 13px;box-shadow:0 6px 18px rgba(30,40,60,.08);transition:opacity .14s ease,transform .14s ease}
