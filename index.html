@@ -337,14 +337,14 @@ body{overflow-x:visible}
 <div style="display:flex;flex-direction:column;gap:14px">
 <h2>Интуитивный интерфейс</h2>
 <div class="states" id="stGrid" role="group" aria-label="Состояния AdamAI: нажмите, чтобы сменить состояние карандаша">
-<button type="button" class="st" data-state="0" aria-pressed="true"><span class="dot hollow" aria-hidden="true"></span>На связи</button>
-<button type="button" class="st" data-state="1" aria-pressed="false"><span class="dot" style="background:#ac87ef" aria-hidden="true"></span>Думаю</button>
-<button type="button" class="st" data-state="2" aria-pressed="false"><span class="dot" style="background:#40bce5" aria-hidden="true"></span>Фоновая задача</button>
-<button type="button" class="st" data-state="3" aria-pressed="false"><span class="dot" style="background:#2ed268" aria-hidden="true"></span>Готово</button>
-<button type="button" class="st" data-state="4" aria-pressed="false"><span class="dot" style="background:#f1ac22" aria-hidden="true"></span>Жду решения</button>
-<button type="button" class="st" data-state="5" aria-pressed="false"><span class="dot" style="background:#bac6da" aria-hidden="true"></span>Не беспокоить</button>
-<button type="button" class="st" data-state="6" aria-pressed="false"><span class="dot" style="background:#d9a94a" aria-hidden="true"></span>Публикация</button>
-<button type="button" class="st" data-state="7" aria-pressed="false"><span class="dot" style="background:#7d838c" aria-hidden="true"></span>Сбой</button>
+<button type="button" class="st" data-state="0" aria-pressed="true"><span class="dot hollow" aria-hidden="true"></span>Покой</button>
+<button type="button" class="st" data-state="1" aria-pressed="false"><span class="dot" style="background:#9F86F0" aria-hidden="true"></span>Думает</button>
+<button type="button" class="st" data-state="2" aria-pressed="false"><span class="dot" style="background:#3BA9DC" aria-hidden="true"></span>Работает</button>
+<button type="button" class="st" data-state="3" aria-pressed="false"><span class="dot" style="background:#E89A1E" aria-hidden="true"></span>Ждёт решения</button>
+<button type="button" class="st" data-state="4" aria-pressed="false"><span class="dot" style="background:#34A853" aria-hidden="true"></span>Готово</button>
+<button type="button" class="st" data-state="5" aria-pressed="false"><span class="dot" style="background:#1FA595" aria-hidden="true"></span>Задача в фоне</button>
+<button type="button" class="st" data-state="6" aria-pressed="false"><span class="dot" style="background:#8E98C2" aria-hidden="true"></span>Не беспокоить</button>
+<button type="button" class="st" data-state="7" aria-pressed="false"><span class="dot" style="background:#7D838C" aria-hidden="true"></span>Сбой</button>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:10px">
@@ -486,20 +486,20 @@ body{overflow-x:visible}
 <script id="adam-data">
 const FINISHES = [{"name": "Голубой", "slug": "blue", "color": "#b3ceec", "gradient": ["#a1b9d3", "#a2b7d2", "#c5d7ed", "#c0d6ee", "#b2c9e8", "#b1cae9", "#aac1e0", "#a0b9d7"], "face": "#1d2a3f", "glint": "#fff", "accent": "#a9bdd6"}, {"name": "Шалфей", "slug": "sage", "color": "#c0d3bf", "gradient": ["#adbdab", "#aebbaa", "#d3dcc0", "#cedbc1", "#bfcebc", "#becfbd", "#b6c6b5", "#acbdae"], "face": "#1d2a3f", "glint": "#fff", "accent": "#adc0ad"}, {"name": "Песочный", "slug": "sand", "color": "#e3d4bd", "gradient": ["#ccbea9", "#cdbca8", "#faddbe", "#f3dcbf", "#e2cfba", "#e0d0bb", "#d8c7b3", "#cbbeac"], "face": "#1d2a3f", "glint": "#fff", "accent": "#c6b69d"}, {"name": "Графит", "slug": "graphite", "color": "#5e626b", "gradient": ["#5a5d66", "#5a5c65", "#62646b", "#62646c", "#5e616a", "#5e616a", "#5c5f68", "#595d66"], "face": "#1d2a3f", "glint": "#fff", "accent": "#727887"}];
 const STATES=[
- {name:'На связи',color:'#b5c7da',icon:'<circle cx="133" cy="140" r="5" fill="#fff"/>'},
- {name:'Думаю',color:'#ac87ef',icon:'<g fill="#c6acef"><circle cx="117" cy="140" r="4"/><circle cx="133" cy="140" r="4"/><circle cx="149" cy="140" r="4"/></g>'},
- {name:'Фоновая задача',color:'#40bce5',icon:'<rect x="110" y="137" width="46" height="6" rx="3" fill="#3dc6ee"/>'},
- {name:'Готово',color:'#2ed268',icon:'<path d="M115 140l12 10 24-24" fill="none" stroke="#35d66b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>'},
- {name:'Жду решения',color:'#f1ac22',icon:'<path d="M133 125v18" stroke="#ffbc35" stroke-width="6" stroke-linecap="round"/><circle cx="133" cy="154" r="3.5" fill="#ffbc35"/>'},
- {name:'Не беспокоить',color:'#bac6da',icon:'<path d="M140 124A17 17 0 1 0 147 155A14 14 0 0 1 140 124Z" fill="#b99aef"/>'},
- {name:'Публикация',color:'#d9a94a',icon:'<path d="M110 149l46-22-15 33-12-9z" fill="#e6b658"/><path d="M129 151l27-24" stroke="#b9882e" stroke-width="2" stroke-linecap="round"/>'}
+ {name:'Покой',color:'#b5c7da',icon:'<circle cx="133" cy="140" r="5" fill="#fff"/>'},
+ {name:'Думает',color:'#9F86F0',icon:'<g fill="#c7baf6"><circle cx="117" cy="140" r="4"/><circle cx="133" cy="140" r="4"/><circle cx="149" cy="140" r="4"/></g>'},
+ {name:'Работает',color:'#3BA9DC',icon:'<rect x="110" y="137" width="46" height="6" rx="3" fill="#67C2EC"/>'},
+ {name:'Ждёт решения',color:'#E89A1E',icon:'<path d="M133 125v18" stroke="#F9B84B" stroke-width="6" stroke-linecap="round"/><circle cx="133" cy="154" r="3.5" fill="#F9B84B"/>'},
+ {name:'Готово',color:'#34A853',icon:'<path d="M115 140l12 10 24-24" fill="none" stroke="#4BC771" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>'},
+ {name:'Задача в фоне',color:'#1FA595',icon:'<rect x="110" y="137" width="46" height="6" rx="3" fill="#3EC2B4"/>'},
+ {name:'Не беспокоить',color:'#8E98C2',icon:'<path d="M140 124A17 17 0 1 0 147 155A14 14 0 0 1 140 124Z" fill="#A9B3D8"/>'},
+ {name:'Сбой',color:'#7D838C',icon:'<path d="M133 126v12" stroke="#7d838c" stroke-width="6" stroke-linecap="round"/><circle cx="133" cy="150" r="3.5" fill="#7d838c"/>'}
 ];
 </script>
 <script>
 'use strict';
 (function(){
-var BONUS={name:'Сбой',color:'#7d838c',icon:'<path d="M133 126v12" stroke="#7d838c" stroke-width="6" stroke-linecap="round"/><circle cx="133" cy="150" r="3.5" fill="#7d838c"/>'};
-var st=STATES.concat([BONUS]);
+var st=STATES;
 var stTiles=[].slice.call(document.querySelectorAll('#stGrid .st'));
 var finRow=document.getElementById('finRow');
 var finLabel=document.getElementById('finLabel');
