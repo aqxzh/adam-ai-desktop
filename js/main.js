@@ -70,6 +70,14 @@ document.querySelectorAll('.zb').forEach(function(b){
 zm.addEventListener('click',closeZoom);
 var toTop=document.getElementById('toTop');
 if(toTop)toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+var themeBtn=document.getElementById('themeBtn');
+if(themeBtn)themeBtn.addEventListener('click',function(){
+ var d=document.documentElement;
+ var t=d.getAttribute('data-theme')==='dark'?'light':'dark';
+ d.setAttribute('data-theme',t);
+ d.style.colorScheme=t;
+ try{localStorage.setItem('adam-theme',t);}catch(e){}
+});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
 })();
 'use strict';
