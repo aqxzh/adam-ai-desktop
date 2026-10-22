@@ -81,7 +81,8 @@ var scene=document.getElementById('scene'),
     crumb=document.getElementById('crumb'),
     bubR=document.getElementById('bubR'),
     bubT=document.getElementById('bubT'),
-    bubS=document.getElementById('bubS');
+    bubS=document.getElementById('bubS'),
+    toTopBtn=document.getElementById('toTop');
 var rawCols=cells.map(function(c){return [].slice.call(c.querySelectorAll('.chp'));});
 var N=Math.min(rawCols[0].length,rawCols[1].length);
 var HOLD=0.36,STAG=0.5,RIPS=[-1,1];
@@ -208,7 +209,7 @@ function render(){
  var i=Math.floor(s+1e-9);if(i>N-1)i=N-1;
  var fr=s-i;
  var settled=fr<HOLD?i:Math.min(i+1,N-1);
- if(settled!==cur){cur=settled;applyCur();}
+ if(settled!==cur){cur=settled;applyCur();if(toTopBtn)toTopBtn.classList.toggle('is-hidden',cur===0);}
  CH.forEach(function(col,ci){col.forEach(function(ch,k){
   var e=(s-(k-1+HOLD))/(1-HOLD),o=(s-(k+HOLD))/(1-HOLD);
   e=e<0?0:(e>1?1:e);o=o<0?0:(o>1?1:o);
