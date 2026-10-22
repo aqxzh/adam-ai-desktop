@@ -136,6 +136,9 @@ body{overflow-x:visible}
 .pen-stage{margin:0 auto}
 .crumb{display:none}
 }
+#toTop{position:fixed;right:20px;bottom:20px;z-index:60;width:46px;height:46px;border-radius:50%;background:#FFFFFF;border:1px solid #E3E6EA;box-shadow:0 6px 18px rgba(30,40,60,.16);padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .18s ease,background .18s ease}
+#toTop:hover{background:#F2F4F7;transform:translateY(-2px)}
+#toTop svg{width:20px;height:20px;display:block}
 </style>
 </head>
 <body>
@@ -478,6 +481,7 @@ body{overflow-x:visible}
 </div>
 </footer>
 
+<button id="toTop" type="button" aria-label="Вернуться к обзору"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 15V5M5.5 9.5 10 5l4.5 4.5" fill="none" stroke="#2C3644" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div class="zm" id="zm" role="dialog" aria-modal="true" tabindex="-1" aria-label="Увеличенный снимок">
 <img loading="lazy" decoding="async" id="zmImg" alt="">
 <span class="zm-x" aria-hidden="true">Закрыть ✕</span>
@@ -567,6 +571,8 @@ document.querySelectorAll('.zb').forEach(function(b){
   });
 });
 zm.addEventListener('click',closeZoom);
+var toTop=document.getElementById('toTop');
+if(toTop)toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
 })();
 </script>
