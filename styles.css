@@ -133,8 +133,8 @@ h2{margin:0;font-size:28px;line-height:1.15;font-weight:800;letter-spacing:-.01e
 .dott .red{width:12px;height:12px;border-radius:50%;background:#E5484D;flex:0 0 12px}
 .pen{flex:0 0 340px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .pen-stage{position:relative;width:330px;height:500px}
-.pen-svg .eye{transform-box:fill-box;transform-origin:center;animation:blink 5.4s ease 1.2s infinite}
-@keyframes blink{0%,93.4%,100%{transform:scaleY(1)}95.2%{transform:scaleY(.1)}97.8%{transform:scaleY(1)}}
+.pen-svg .eye{transform-box:fill-box;transform-origin:center;animation:blink 3.4s ease 1.1s infinite}
+@keyframes blink{0%,90%,100%{transform:scaleY(1)}92.4%{transform:scaleY(.1)}94.8%{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.pen-svg .eye{animation:none}}
 .pen-svg{position:absolute;left:calc(50% - var(--pw)/2);top:12px;width:var(--pw);height:calc(var(--pw)*3.4533)}
 .disc{position:absolute;left:20px;top:122px;width:290px;height:290px;border-radius:50%;background:var(--surface)}
@@ -216,3 +216,11 @@ body{overflow-x:visible}
 @keyframes framePulse{50%{transform:scale(1.015)}}
 @keyframes winkAnim{0%{transform:scaleY(1)}45%{transform:scaleY(.14)}62%{transform:scaleY(.14)}100%{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.way,.pen-svg,.demo-pop,.dp-row,.demo-keys,.demo-keys .key,.demo-dim,.demo-frame{transition:none!important}.demo-frame.show{animation:none}}
+@keyframes sway{0%{transform:rotate(0)}28%{transform:rotate(-5deg)}58%{transform:rotate(4.5deg)}82%{transform:rotate(-2.4deg)}100%{transform:rotate(0)}}
+.pen-stage.sway .pen-svg{animation:sway 2s ease}
+@keyframes peek{0%{transform:translate(0,0)}22%{transform:translate(-7px,1px)}56%{transform:translate(7px,-2px)}100%{transform:translate(0,0)}}
+.pen-stage.peek #penEyes{animation:peek 1.5s ease}
+@keyframes dblblink{0%,5%,10%,15%,100%{transform:scaleY(1)}7.5%{transform:scaleY(.12)}12.5%{transform:scaleY(.12)}}
+.pen-stage.dbl .eye{animation:dblblink .62s linear}
+@keyframes squintAnim{0%,100%{transform:scaleY(1)}45%{transform:scaleY(.32)}72%{transform:scaleY(.32)}}
+@media (prefers-reduced-motion:reduce){.pen-stage.sway .pen-svg,.pen-stage.peek #penEyes,.pen-stage.dbl .eye,.pen-stage.dbl .eye{animation:none!important}}

@@ -110,6 +110,38 @@ if(penEyes&&eyeGroups.length===2&&!matchMedia('(prefers-reduced-motion: reduce)'
  window.addEventListener('resize',function(){clearTimeout(eyeSz);eyeSz=setTimeout(function(){eyeR=null;},140);});
  window.addEventListener('scroll',function(){eyeR=null;},{passive:true});
 }
+var penIdleNext=performance.now()+3600,penIdleBusy=false;
+var penIdleRed=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!penIdleRed){
+ var penMouthSwing=function(on){
+  var m=document.getElementById('penMouth');
+  if(m)m.setAttribute('d',on?'M119 471Q133 487 147 471':'M122 474Q133 482 144 474');
+ };
+ var penSquint=function(ms){
+  [].slice.call(document.querySelectorAll('.pen-svg .eye')).forEach(function(el){
+   el.style.animation='squintAnim '+ms+'ms ease';
+   setTimeout(function(){el.style.animation='';},ms+80);
+  });
+ };
+ var penStageNode=document.querySelector('.pen-stage');
+ var penIdleBlocked=function(){
+  return penStageNode.classList.contains('wave')||penStageNode.classList.contains('sway')||penStageNode.classList.contains('peek')||penStageNode.classList.contains('dbl');
+ };
+ var penIdleActs=[
+  function(){penStageNode.classList.add('sway');setTimeout(function(){penStageNode.classList.remove('sway');},2000);},
+  function(){penMouthSwing(true);penSquint(900);setTimeout(function(){penMouthSwing(false);},950);},
+  function(){penStageNode.classList.add('peek');setTimeout(function(){penStageNode.classList.remove('peek');},1600);},
+  function(){penStageNode.classList.add('dbl');setTimeout(function(){penStageNode.classList.remove('dbl');},700);}
+ ];
+ setInterval(function(){
+  var now=performance.now();
+  if(document.hidden||penIdleBusy||now<penIdleNext||penIdleBlocked())return;
+  penIdleBusy=true;
+  penIdleActs[Math.floor(Math.random()*penIdleActs.length)]();
+  penIdleNext=now+4200+Math.random()*3600;
+  setTimeout(function(){penIdleBusy=false;},2300);
+ },400);
+}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
 })();
 'use strict';
