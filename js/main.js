@@ -435,7 +435,7 @@ if(penSvgClick){
   var st=penStage();
   if(st.classList.contains('hop'))return;
   st.classList.add('hop');
-  setTimeout(function(){st.classList.remove('hop');},900);
+  setTimeout(function(){st.classList.remove('hop');},650);
   demoPop();
  });
 }
