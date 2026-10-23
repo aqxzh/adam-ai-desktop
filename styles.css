@@ -216,10 +216,10 @@ body{overflow-x:visible}
 @keyframes framePulse{50%{transform:scale(1.015)}}
 @keyframes winkAnim{0%{transform:scaleY(1)}45%{transform:scaleY(.14)}62%{transform:scaleY(.14)}100%{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.way,.pen-svg,.demo-pop,.dp-row,.demo-keys,.demo-keys .key,.demo-dim,.demo-frame{transition:none!important}.demo-frame.show{animation:none}}
-@keyframes sway{0%{transform:rotate(0)}14%{transform:rotate(-9.5deg)}36%{transform:rotate(0)}50%{transform:rotate(8.5deg)}64%{transform:rotate(0)}78%{transform:rotate(-9deg)}92%{transform:rotate(4deg)}100%{transform:rotate(0)}}
-.pen-stage.sway .pen-svg{animation:sway 2.8s ease}
-@keyframes peek{0%{transform:translate(0,0)}22%{transform:translate(-11px,1px)}56%{transform:translate(11px,-2px)}100%{transform:translate(0,0)}}
-.pen-stage.peek #penEyes{animation:peek 1.7s ease}
+@keyframes sway{0%{transform:rotate(0) translateX(0)}26%{transform:rotate(-5deg) translateX(-2.5px)}52%{transform:rotate(4.5deg) translateX(2.5px)}78%{transform:rotate(-3.2deg) translateX(-1.6px)}100%{transform:rotate(0) translateX(0)}}
+.pen-stage.sway .pen-svg{animation:sway 2.6s cubic-bezier(.42,0,.58,1)}
+@keyframes peek{0%{transform:translate(0,0)}16%{transform:translate(-8px,1px)}44%{transform:translate(-8px,1px)}74%{transform:translate(8px,-1px)}94%{transform:translate(0,0)}100%{transform:translate(0,0)}}
+.pen-stage.peek #penEyes{animation:peek 1.8s cubic-bezier(.3,0,.5,1)}
 @keyframes dblblink{0%,5%,10%,15%,100%{transform:scaleY(1)}7.5%{transform:scaleY(.12)}12.5%{transform:scaleY(.12)}}
 .pen-stage.dbl .eye{animation:dblblink .62s linear}
 @keyframes squintAnim{0%,100%{transform:scaleY(1)}40%{transform:scaleY(.2)}75%{transform:scaleY(.2)}}

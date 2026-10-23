@@ -130,7 +130,7 @@ if(!penIdleRed){
  var penIdleActs=[
   function(){penStageNode.classList.add('sway');setTimeout(function(){penStageNode.classList.remove('sway');},2900);},
   function(){penStageNode.classList.add('sway');setTimeout(function(){penStageNode.classList.remove('sway');},2900);},
-  function(){penStageNode.classList.add('peek');setTimeout(function(){penStageNode.classList.remove('peek');},1800);},
+  function(){penStageNode.classList.add('peek');setTimeout(function(){penStageNode.classList.remove('peek');},1900);},
   function(){penStageNode.classList.add('dbl');setTimeout(function(){penStageNode.classList.remove('dbl');},700);},
   function(){penStageNode.classList.add('dbl');setTimeout(function(){penStageNode.classList.remove('dbl');},700);},
   function(){penMouthSwing(true);penSquint(1400);setTimeout(function(){penMouthSwing(false);},1450);}
