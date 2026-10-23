@@ -441,7 +441,7 @@ requestAnimationFrame(tick);
    setBub('Не отправил','Всё осталось у вас');
    statusPulse(0,700);
   });
- }
+  }
 var penSvgClick=document.querySelector('.pen-svg');
 if(penSvgClick){
  penSvgClick.addEventListener('click',function(){
