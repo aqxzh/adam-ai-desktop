@@ -429,6 +429,19 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){lay
  if(!im.complete)im.addEventListener('load',fitAll,{once:true});
 });
 requestAnimationFrame(tick);
+ var mcYes=document.getElementById('mcYes'),mcNo=document.getElementById('mcNo'),mcRes=document.getElementById('mcRes');
+ if(mcYes&&mcNo&&mcRes){
+  mcYes.addEventListener('click',function(){
+   mcRes.textContent='Отправлено ✓ — таймер до отмены шёл 20 секунд (демо)';
+   setBub('Отправил','Только с вашего «Да»');
+   statusPulse(4,2600);
+  });
+  mcNo.addEventListener('click',function(){
+   mcRes.textContent='Отменено — письмо никуда не ушло.';
+   setBub('Не отправил','Всё осталось у вас');
+   statusPulse(0,700);
+  });
+ }
 var penSvgClick=document.querySelector('.pen-svg');
 if(penSvgClick){
  penSvgClick.addEventListener('click',function(){
