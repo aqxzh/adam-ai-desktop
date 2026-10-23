@@ -206,6 +206,18 @@
 <h4>Нужен совет?</h4>
 <p>Я всегда тут!</p>
 </div>
+<div id="demoPop" class="demo-pop" aria-hidden="true">
+<p class="dp-t">AdamAI</p>
+<p class="dp-row">Открыть чат</p>
+<p class="dp-row">Обвести экран</p>
+<p class="dp-row">Не беспокоить</p>
+<p class="dp-in">Спросите…<span class="caret"></span></p>
+</div>
+<div id="demoKeys" class="demo-keys" aria-hidden="true">
+<span class="key">Ctrl</span><span class="plus">+</span><span class="key">Alt</span><span class="plus">+</span><span class="key">Пробел</span>
+</div>
+<div id="demoDim" class="demo-dim" aria-hidden="true"></div>
+<div id="demoFrame" class="demo-frame" aria-hidden="true"></div>
 </div>
 <div class="pick">
 <div class="swrow" id="finRow" role="group" aria-label="Цвет корпуса карандаша"></div>
@@ -252,15 +264,15 @@
 <section class="chp">
 <div class="kv" style="gap:16px">
 <p class="eyebrow">Три способа позвать его</p>
-<div class="way">
+<div class="way" data-demo="pop" role="button" tabindex="0">
 <div class="h"><span class="n">01</span><h3>Щёлкните по карандашу</h3></div>
 <p>Откроются мини-чат и меню над головой.</p>
 </div>
-<div class="way">
+<div class="way" data-demo="keys" role="button" tabindex="0">
 <div class="h"><span class="n">02</span><h3>Нажмите Ctrl + Alt + Пробел</h3></div>
 <p>Из любой программы — сразу к строке ввода.</p>
 </div>
-<div class="way">
+<div class="way" data-demo="lasso" role="button" tabindex="0">
 <div class="h"><span class="n">03</span><h3>Обведите экран</h3></div>
 <p>И спросите о фрагменте: «Что здесь не так?»</p>
 </div>

@@ -203,15 +203,89 @@ function settle(v,dir){
  return dir<0?i:Math.min(i+1,N-1);
 }
 var bubTO=0;
+function typeInto(el,txt,ms,then){
+ clearTimeout(el._tto);
+ el.textContent='';
+ var i=0;
+ var step=function(){i++;el.textContent=txt.slice(0,i);if(i<txt.length)el._tto=setTimeout(step,ms);else if(then)then();};
+ step();
+}
 function setBub(t,sub){
- if(bubT.textContent===t&&bubS.textContent===sub)return;
+ if(bubT.textContent===t&&bubS.textContent===sub&&!bubT._tto&&!bubS._tto)return;
+ clearTimeout(bubT._tto);clearTimeout(bubS._tto);
  bubR.classList.add('flash');
  clearTimeout(bubTO);
- bubTO=setTimeout(function(){bubT.textContent=t;bubS.textContent=sub;bubR.classList.remove('flash');},140);
+ bubTO=setTimeout(function(){
+  bubR.classList.remove('flash');
+  if(RED){bubT.textContent=t;bubS.textContent=sub;return;}
+  typeInto(bubT,t,24,function(){typeInto(bubS,sub,14);});
+ },140);
+}
+function statusState(idx){
+ [].slice.call(document.querySelectorAll('.pen-svg')).forEach(function(svg){
+  svg.querySelector('[id$="StatusOverlay"]').setAttribute('opacity',idx===0?'0':'1');
+  [].slice.call(svg.querySelectorAll('[id$="StatusTone"] stop')).forEach(function(el,j){el.setAttribute('stop-color',j===0?'#e5e9ef':STATES[idx].color);});
+  var sig=svg.querySelector('[id$="Signal"]');if(sig)sig.innerHTML=STATES[idx].icon;
+ });
+}
+function penActiveState(){
+ var t=document.querySelectorAll('#stGrid .st');
+ for(var i=0;i<t.length;i++){if(t[i].getAttribute('aria-pressed')==='true')return i;}
+ return 0;
+}
+function statusPulse(idx,ms,then){
+ var back=penActiveState();
+ statusState(idx);
+ setTimeout(function(){statusState(back);if(then)then();},ms);
+}
+function penLayer(id){return document.getElementById(id);}
+function demoPop(){
+ var pop=penLayer('demoPop');if(!pop||pop.classList.contains('show'))return;
+ pop.classList.add('show');
+ penStage().classList.add('wave');setTimeout(function(){penStage().classList.remove('wave');},900);
+ statusPulse(2,1000);
+ setBub('Открою мини-чат','Меню — прямо над головой');
+ setTimeout(function(){pop.classList.remove('show');},3200);
+}
+function demoKeys(){
+ var kw=penLayer('demoKeys');if(!kw||kw.classList.contains('show'))return;
+ kw.classList.add('show');
+ var keys=[].slice.call(kw.querySelectorAll('.key'));
+ keys.forEach(function(k,j){setTimeout(function(){
+  k.classList.add('press');
+  if(j===keys.length-1){statusPulse(1,700);setBub('Ctrl + Alt + Пробел','Строка ввода — откуда угодно');}
+ },j*300);});
+ setTimeout(function(){keys.forEach(function(k){k.classList.remove('press');});},1500);
+ setTimeout(function(){kw.classList.remove('show');},2600);
+}
+function demoLasso(){
+ var dim=penLayer('demoDim'),fr=penLayer('demoFrame');
+ if(!fr||fr.classList.contains('show'))return;
+ var d=document.querySelector('.disc').getBoundingClientRect();
+ fr.style.left=(d.left-24)+'px';fr.style.top=(d.top-16)+'px';fr.style.width=(d.width+48)+'px';fr.style.height=(d.height+34)+'px';
+ statusPulse(2,1500);
+ dim.classList.add('on');fr.classList.add('show');
+ setBub('Обвёл фрагмент','Разберу, что здесь не так');
+ setTimeout(function(){dim.classList.remove('on');fr.classList.remove('show');},2700);
+}
+function penStage(){return document.querySelector('.pen-stage');}
+function penWink(){
+ var es=document.querySelectorAll('.pen-svg .eye');
+ if(es.length<2)return;
+ var eye=es[1];
+ eye.style.animation='winkAnim .8s ease .05s';
+ setTimeout(function(){eye.style.animation='';},1050);
+}
+function waveAndWink(){
+ if(RED)return;
+ penStage().classList.add('wave');
+ setTimeout(function(){penStage().classList.remove('wave');},900);
+ setTimeout(penWink,600);
 }
 function applyCur(){
  var i=cur;
  if(crumb)crumb.textContent=i===0?'Обзор':(LABELS[i-1]||'');
+ if(i===N-1){setBub('Вопросы?','Отвечу — спрашивайте');waveAndWink();return;}
  if(i>0&&BUB[i-1])setBub(BUB[i-1][0],BUB[i-1][1]);
 }
 function render(){
@@ -265,6 +339,13 @@ function render(){
  });});
 }
 function tick(){render();requestAnimationFrame(tick);}
+
+[].slice.call(document.querySelectorAll('.way')).forEach(function(w){
+ var kind=w.getAttribute('data-demo');if(!kind)return;
+ var go=function(){if(kind==='pop')demoPop();else if(kind==='keys')demoKeys();else demoLasso();};
+ w.addEventListener('click',go);
+ w.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
+});
 
 layout();
 s=raw();
