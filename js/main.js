@@ -132,9 +132,31 @@ if(!penIdleRed){
   penIdleActs[Math.floor(Math.random()*penIdleActs.length)]();
   penIdleNext=now+3200+Math.random()*2600;
   setTimeout(function(){penIdleBusy=false;},3000);
- },350);
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+  },350);
+ }
+ var bLh=document.getElementById('bLh'),bLs=document.getElementById('bLs'),bubLN=document.getElementById('bubL');
+ if(bLh&&bLs&&bubLN&&window.matchMedia&&matchMedia('(pointer: fine)').matches){
+  var bIdle=[['Подсказка','Обведи и спроси'],['Привал?','Скажи — помогу'],['Знаю про файлы всё','Спроси про таблицы'],['Пока на связи','Не скучай']];
+  var bIx=0,bNear=false,bSaid=false,bPenR=null;
+  function bSwap(h,s){
+   bubLN.classList.add('flash');
+   setTimeout(function(){bLh.textContent=h;bLs.textContent=s;bubLN.classList.remove('flash');},140);
+  }
+  window.addEventListener('scroll',function(){bPenR=null;},{passive:true});
+  window.addEventListener('resize',function(){bPenR=null;});
+  document.addEventListener('pointermove',function(e){
+   if(!bPenR){var c=document.querySelector('.pen-stage');if(!c)return;bPenR=c.getBoundingClientRect();}
+   var d=Math.hypot(e.clientX-(bPenR.left+bPenR.width/2),e.clientY-(bPenR.top+bPenR.height/2));
+   if(!bNear&&!bSaid&&d<180){bNear=true;bSaid=true;bSwap('Я тебя вижу!','Привет-привет');}
+   if(bNear&&d>250){bNear=false;bSaid=false;}
+  },{passive:true});
+  setInterval(function(){
+   if(document.hidden||bNear)return;
+   bIx=(bIx+1)%bIdle.length;
+   bSwap(bIdle[bIx][0],bIdle[bIx][1]);
+  },21000);
+ }
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
 })();
 'use strict';
 (function(){
@@ -306,12 +328,36 @@ function waveAndWink(){
  setTimeout(function(){penStage().classList.remove('wave');},900);
  setTimeout(penWink,600);
 }
-function applyCur(){
- var i=cur;
- if(crumb)crumb.textContent=i===0?'Обзор':(LABELS[i-1]||'');
- if(i===N-1){setBub('Вопросы?','Отвечу — спрашивайте');waveAndWink();return;}
- if(i>0&&BUB[i-1])setBub(BUB[i-1][0],BUB[i-1][1]);
-}
+ function applyCur(){
+  var i=cur;
+  if(crumb)crumb.textContent=i===0?'Обзор':(LABELS[i-1]||'');
+  if(dotBtns){
+   dotBtns.forEach(function(b,k){
+    var on=k===i;
+    b.classList.toggle('on',on);
+    if(on)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');
+   });
+  }
+  if(i===N-1){setBub('Вопросы?','Отвечу — спрашивайте');waveAndWink();return;}
+  if(i>0&&BUB[i-1])setBub(BUB[i-1][0],BUB[i-1][1]);
+ }
+ var dotsNav=document.getElementById('dotsNav');
+ var dotBtns=null;
+ if(dotsNav){
+  dotBtns=[];
+  for(var di=0;di<N;di++){
+   var dlb=di===0?'Обзор':(di===N-1?'Итог':(LABELS[di-1]||''));
+   var db=document.createElement('button');
+   db.type='button';db.className='dot';db.title=dlb;
+   db.setAttribute('aria-label','Слайд '+(di+1)+': '+dlb);
+   (function(k){
+    db.addEventListener('click',function(){
+     window.scrollTo({top:sceneTop+k*STEP,behavior:RED?'auto':'smooth'});
+    });
+   })(di);
+   dotsNav.appendChild(db);dotBtns.push(db);
+  }
+ }
 function render(){
  if(flat)return;
  var r=raw();
@@ -383,4 +429,14 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){lay
  if(!im.complete)im.addEventListener('load',fitAll,{once:true});
 });
 requestAnimationFrame(tick);
+var penSvgClick=document.querySelector('.pen-svg');
+if(penSvgClick){
+ penSvgClick.addEventListener('click',function(){
+  var st=penStage();
+  if(st.classList.contains('hop'))return;
+  st.classList.add('hop');
+  setTimeout(function(){st.classList.remove('hop');},900);
+  demoPop();
+ });
+}
 })();
