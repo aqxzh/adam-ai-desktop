@@ -245,8 +245,6 @@ function demoPop(){
  penStage().classList.add('wave');setTimeout(function(){penStage().classList.remove('wave');},900);
  statusPulse(2,1000);
  setBub('Напиши, что нужно','Понимает обычную речь');
- var field=penLayer('demoPopText');
- if(field)typeInto(field,'Сравни цены поставщиков',32);
  setTimeout(function(){pop.classList.remove('show');},3400);
 }
 function demoKeys(){
