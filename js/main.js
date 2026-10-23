@@ -244,8 +244,10 @@ function demoPop(){
  pop.classList.add('show');
  penStage().classList.add('wave');setTimeout(function(){penStage().classList.remove('wave');},900);
  statusPulse(2,1000);
- setBub('Открою мини-чат','Меню — прямо над головой');
- setTimeout(function(){pop.classList.remove('show');},3200);
+ setBub('Напиши, что нужно','Понимает обычную речь');
+ var field=penLayer('demoPopText');
+ if(field)typeInto(field,'Сравни цены поставщиков',32);
+ setTimeout(function(){pop.classList.remove('show');},3400);
 }
 function demoKeys(){
  var kw=penLayer('demoKeys');if(!kw||kw.classList.contains('show'))return;
