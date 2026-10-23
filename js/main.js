@@ -398,9 +398,9 @@ function render(){
   var e=(s-(k-1+HOLD))/(1-HOLD),o=(s-(k+HOLD))/(1-HOLD);
   e=e<0?0:(e>1?1:e);o=o<0?0:(o>1?1:o);
   if(k===0&&!introDone)e=Math.min(1,it);
-  var on=e>0&&o<1;
-  ch.el.classList.toggle('on',on);
-  ch.el.style.pointerEvents=on&&(e<1||o>0)?'none':'';
+   var on=e>0&&o<1;
+   ch.el.classList.toggle('on',on);
+   ch.el.style.pointerEvents=e<=0?'none':'';
   if(!RED&&on){
    if(e>0&&e<1)anim(ci,k,'in',e);
    else if(o>0&&o<1)anim(ci,k,'out',o);
