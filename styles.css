@@ -222,5 +222,9 @@ body{overflow-x:visible}
 .pen-stage.peek #penEyes{animation:peek 1.8s cubic-bezier(.3,0,.5,1)}
 @keyframes dblblink{0%,5%,10%,15%,100%{transform:scaleY(1)}7.5%{transform:scaleY(.12)}12.5%{transform:scaleY(.12)}}
 .pen-stage.dbl .eye{animation:dblblink .62s linear}
-@keyframes squintAnim{0%,100%{transform:scaleY(1)}40%{transform:scaleY(.2)}75%{transform:scaleY(.2)}}
+.eye-arc{opacity:0}
+.eye-rect,.eye-glint,.eye-arc{transition:opacity .18s ease}
+.pen-stage.happy .eye-arc{opacity:1}
+.pen-stage.happy .eye-rect{opacity:0}
+.pen-stage.happy .eye-glint{opacity:0}
 @media (prefers-reduced-motion:reduce){.pen-stage.sway .pen-svg,.pen-stage.peek #penEyes,.pen-stage.dbl .eye,.pen-stage.dbl .eye{animation:none!important}}
